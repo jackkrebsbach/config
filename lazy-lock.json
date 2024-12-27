@@ -1,0 +1,9 @@
+{
+  "lazy.nvim": { "branch": "main", "commit": "7e6c863bc7563efbdd757a310d17ebc95166cef3" },
+  "lazydev.nvim": { "branch": "main", "commit": "8620f82ee3f59ff2187647167b6b47387a13a018" },
+  "mini.nvim": { "branch": "main", "commit": "2faada1cffce5609d78ac5e81eaf3754e0476758" },
+  "night-fox": { "branch": "main", "commit": "7557f26defd093c4e9bc17f28b08403f706f5a44" },
+  "nvim-lspconfig": { "branch": "master", "commit": "ff2b85abaa810f6611233dbe6d31c07510ebf43d" },
+  "nvim-treesitter": { "branch": "master", "commit": "eb3e850acff4d9f2f2dd8dacd75353043c899753" },
+  "vimtex": { "branch": "master", "commit": "b8bb79b5fb27e9030ade92e75cd9375416f2c666" }
+}
