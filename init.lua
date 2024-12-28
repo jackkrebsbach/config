@@ -1,5 +1,4 @@
 require("config.lazy")
-
 local set = vim.opt
 
 set.shiftwidth = 2
@@ -9,6 +8,35 @@ set.clipboard = "unnamedplus"
 
 -- Fix for tree-sitter highlight error
 vim.hl = vim.highlight
+
+-- Inkscape shortcuts
+local inkscape_create = function()
+  local line = vim.fn.getline(".")
+  local root = vim.b.vimtex and vim.b.vimtex.root or ''
+  if root ~= '' then
+    local command = string.format('.!inkscape-figures create "%s" "%s/figures/"', line, root)
+    vim.cmd('silent ' .. command)
+    vim.cmd('normal! <CR>')
+    vim.cmd('w')
+  else
+    print("vimtex root is not set!")
+  end
+end
+
+
+local inkscape_edit = function()
+  local root = vim.b.vimtex and vim.b.vimtex.root or ''
+  if root ~= '' then
+    local command = string.format('!inkscape-figures edit "%s/figures/" > /dev/null', root)
+    vim.cmd('silent ' .. command)
+    vim.cmd('redraw!')
+  else
+    print("vimtex root is not set!")
+  end
+end
+
+vim.keymap.set('i', '<C-f>', inkscape_create, { noremap = true, silent = true })
+vim.keymap.set('n', '<C-f>', inkscape_edit, { noremap = true, silent = true })
 
 -- Source lines of code/file
 vim.keymap.set("n", "<space><space>x", "<cmd>source %<CR>")
