@@ -4,7 +4,7 @@ return {
     dependencies = {
       {
         "folke/lazydev.nvim",
-        ft = { "lua", "typescript", "tex" }, -- only load on lua files
+        ft = { "lua", "typescript", "tex" },
         opts = {
           library = {
             -- See the configuration section for more details
