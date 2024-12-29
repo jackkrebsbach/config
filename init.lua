@@ -9,6 +9,10 @@ set.clipboard = "unnamedplus"
 -- Fix for tree-sitter highlight error
 vim.hl = vim.highlight
 
+
+-- mini files
+vim.keymap.set('n', '<leader>f', MiniFiles.open)
+
 -- Inkscape shortcuts
 local inkscape_create = function()
   local line = vim.fn.getline(".")
