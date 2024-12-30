@@ -17,6 +17,10 @@ return {
     config = function()
       local capabilities = require('blink.cmp').get_lsp_capabilities()
 
+      require("lspconfig").tailwindcss.setup {
+        capabilities = capabilities
+      }
+
       require("lspconfig").ts_ls.setup {
         capabilities = capabilities,
         on_attach = function(client, bufnr)
