@@ -16,6 +16,14 @@ return {
     },
     config = function()
       local capabilities = require('blink.cmp').get_lsp_capabilities()
+
+      require("lspconfig").ts_ls.setup {
+        capabilities = capabilities,
+        on_attach = function(client, bufnr)
+          -- So prettier is used in formatting
+          client.server_capabilities.documentFormattingProvider = false
+        end,
+      }
       require("lspconfig").lua_ls.setup { capabilities = capabilities }
 
       vim.api.nvim_create_autocmd('LspAttach', {
