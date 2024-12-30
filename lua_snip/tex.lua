@@ -53,6 +53,18 @@ return {
       { delimiters = "<>", }
     )
   ),
+  s({ trig = "al*", snippetType = "autosnippet" },
+    fmta(
+      [[
+      \begin{align*}
+          <>
+      \end{align*}
+    ]],
+      {
+        i(1),
+      }
+    )
+  ),
   s({ trig = "env", snippetType = "autosnippet" },
     fmta(
       [[
@@ -91,7 +103,7 @@ return {
     )
   ),
   s({ trig = "eq", dscr = "A LaTeX equation environment" },
-    fmt( -- The snippet code actually looks like the equation environment it produces.
+    fmt(
       [[
       \begin{equation}
           <>
