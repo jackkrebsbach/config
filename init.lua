@@ -10,11 +10,14 @@ set.clipboard = "unnamedplus"
 vim.hl = vim.highlight
 
 -- Mini files
+---@diagnostic disable-next-line: undefined-global
 vim.keymap.set('n', '<leader>f', MiniFiles.open)
 
 -- Inkscape shortcuts
 local inkscape_create = function()
   local line = vim.fn.getline(".")
+
+  ---@diagnostic disable-next-line: undefined-field
   local root = vim.b.vimtex and vim.b.vimtex.root or ''
   if root ~= '' then
     local command = string.format('.!inkscape-figures create "%s" "%s/figures/"', line, root)
@@ -28,6 +31,7 @@ end
 
 
 local inkscape_edit = function()
+  ---@diagnostic disable-next-line: undefined-field
   local root = vim.b.vimtex and vim.b.vimtex.root or ''
   if root ~= '' then
     local command = string.format('!inkscape-figures edit "%s/figures/" > /dev/null', root)
@@ -37,6 +41,9 @@ local inkscape_edit = function()
     print("vimtex root is not set!")
   end
 end
+
+
+vim.opt.signcolumn = "yes:1"
 
 vim.keymap.set('i', '<C-f>', inkscape_create, { noremap = true, silent = true })
 vim.keymap.set('n', '<C-f>', inkscape_edit, { noremap = true, silent = true })
