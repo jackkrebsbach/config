@@ -9,8 +9,7 @@ set.clipboard = "unnamedplus"
 -- Fix for tree-sitter highlight error
 vim.hl = vim.highlight
 
-
--- mini files
+-- Mini files
 vim.keymap.set('n', '<leader>f', MiniFiles.open)
 
 -- Inkscape shortcuts
@@ -58,8 +57,6 @@ vim.keymap.set('n', 'grr', vim.lsp.buf.references)
 vim.keymap.set('i', '<C-s>', vim.lsp.buf.signature_help)
 
 -- Highlight when yanking (copying) text
--- Try it with `yap` in normal mode
--- See `:help vim.highlight.on_yank()`
 vim.api.nvim_create_autocmd('TextYankPost', {
   desc = 'Highlight when yanking (copying) text',
   group = vim.api.nvim_create_augroup('kickstart-highlight-yank', { clear = true }),
