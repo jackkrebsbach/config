@@ -6,6 +6,11 @@ set.number = true
 set.relativenumber = true
 set.clipboard = "unnamedplus"
 
+
+-- Lua Snip
+-- Lazy-load snippets, i.e. only load when required, e.g. for a given filetype
+require("luasnip.loaders.from_lua").lazy_load({ paths = { "~/.config/nvim/lua_snip/" } })
+
 -- Fix for tree-sitter highlight error
 vim.hl = vim.highlight
 
