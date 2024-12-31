@@ -1,4 +1,7 @@
 require("config.lazy")
+-- Lazy-load snippets, i.e. only load when required, e.g. for a given filetype
+require("luasnip.loaders.from_lua").lazy_load({ paths = { "~/.config/nvim/LuaSnip/" } })
+
 local set = vim.opt
 
 set.shiftwidth = 4
@@ -6,54 +9,14 @@ set.number = true
 set.relativenumber = true
 set.clipboard = "unnamedplus"
 
--- Lua Snip
--- Lazy-load snippets, i.e. only load when required, e.g. for a given filetype
-require("luasnip.loaders.from_lua").lazy_load({ paths = { "~/.config/nvim/LuaSnip/" } })
--- Reload
-vim.keymap.set('n', '<Leader>L',
-  '<Cmd>lua require("luasnip.loaders.from_lua").load({paths = "~/.config/nvim/LuaSnip/"})<CR>')
-
 -- Fix for tree-sitter highlight error
 vim.hl = vim.highlight
 
--- Mini files
----@diagnostic disable-next-line: undefined-global
-vim.keymap.set('n', '<leader>f', MiniFiles.open)
+-- Clear Highlight
+vim.api.nvim_set_keymap("n", "<CR>", ":noh<CR><CR>", { noremap = true, silent = true })
 
--- Inkscape shortcuts
-local inkscape_create = function()
-  local line = vim.fn.getline(".")
-
-  ---@diagnostic disable-next-line: undefined-field
-  local root = vim.b.vimtex and vim.b.vimtex.root or ''
-  if root ~= '' then
-    local command = string.format('.!inkscape-figures create "%s" "%s/figures/"', line, root)
-    vim.cmd('silent ' .. command)
-    vim.cmd('normal! <CR>')
-    vim.cmd('w')
-  else
-    print("vimtex root is not set!")
-  end
-end
-
-
-local inkscape_edit = function()
-  ---@diagnostic disable-next-line: undefined-field
-  local root = vim.b.vimtex and vim.b.vimtex.root or ''
-  if root ~= '' then
-    local command = string.format('!inkscape-figures edit "%s/figures/" > /dev/null', root)
-    vim.cmd('silent ' .. command)
-    vim.cmd('redraw!')
-  else
-    print("vimtex root is not set!")
-  end
-end
-
-
+-- Prevent jumping
 vim.opt.signcolumn = "yes:1"
-
-vim.keymap.set('i', '<C-f>', inkscape_create, { noremap = true, silent = true })
-vim.keymap.set('n', '<C-f>', inkscape_edit, { noremap = true, silent = true })
 
 -- Source lines of code/file
 vim.keymap.set("n", "<space><space>x", "<cmd>source %<CR>")

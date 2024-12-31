@@ -9,6 +9,10 @@ return {
         store_selection_keys = "<Tab>",
       })
 
+      -- Reload Luanip snippets
+      vim.keymap.set('n', '<Leader>L',
+        '<Cmd>lua require("luasnip.loaders.from_lua").load({paths = "~/.config/nvim/LuaSnip/"})<CR>')
+
       vim.api.nvim_set_keymap("i", "jk", "luasnip#expand_or_jumpable() ? '<Plug>luasnip-expand-or-jump' : '<Tab>'",
         { expr = true, silent = true })
 
