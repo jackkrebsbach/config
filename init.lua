@@ -9,6 +9,9 @@ set.clipboard = "unnamedplus"
 -- Lua Snip
 -- Lazy-load snippets, i.e. only load when required, e.g. for a given filetype
 require("luasnip.loaders.from_lua").lazy_load({ paths = { "~/.config/nvim/LuaSnip/" } })
+-- Reload
+vim.keymap.set('n', '<Leader>L',
+  '<Cmd>lua require("luasnip.loaders.from_lua").load({paths = "~/.config/nvim/LuaSnip/"})<CR>')
 
 -- Fix for tree-sitter highlight error
 vim.hl = vim.highlight
@@ -19,31 +22,31 @@ vim.keymap.set('n', '<leader>f', MiniFiles.open)
 
 -- Inkscape shortcuts
 local inkscape_create = function()
-    local line = vim.fn.getline(".")
+  local line = vim.fn.getline(".")
 
-    ---@diagnostic disable-next-line: undefined-field
-    local root = vim.b.vimtex and vim.b.vimtex.root or ''
-    if root ~= '' then
-        local command = string.format('.!inkscape-figures create "%s" "%s/figures/"', line, root)
-        vim.cmd('silent ' .. command)
-        vim.cmd('normal! <CR>')
-        vim.cmd('w')
-    else
-        print("vimtex root is not set!")
-    end
+  ---@diagnostic disable-next-line: undefined-field
+  local root = vim.b.vimtex and vim.b.vimtex.root or ''
+  if root ~= '' then
+    local command = string.format('.!inkscape-figures create "%s" "%s/figures/"', line, root)
+    vim.cmd('silent ' .. command)
+    vim.cmd('normal! <CR>')
+    vim.cmd('w')
+  else
+    print("vimtex root is not set!")
+  end
 end
 
 
 local inkscape_edit = function()
-    ---@diagnostic disable-next-line: undefined-field
-    local root = vim.b.vimtex and vim.b.vimtex.root or ''
-    if root ~= '' then
-        local command = string.format('!inkscape-figures edit "%s/figures/" > /dev/null', root)
-        vim.cmd('silent ' .. command)
-        vim.cmd('redraw!')
-    else
-        print("vimtex root is not set!")
-    end
+  ---@diagnostic disable-next-line: undefined-field
+  local root = vim.b.vimtex and vim.b.vimtex.root or ''
+  if root ~= '' then
+    local command = string.format('!inkscape-figures edit "%s/figures/" > /dev/null', root)
+    vim.cmd('silent ' .. command)
+    vim.cmd('redraw!')
+  else
+    print("vimtex root is not set!")
+  end
 end
 
 
@@ -69,9 +72,9 @@ vim.keymap.set('i', '<C-s>', vim.lsp.buf.signature_help)
 
 -- Highlight when yanking (copying) text
 vim.api.nvim_create_autocmd('TextYankPost', {
-    desc = 'Highlight when yanking (copying) text',
-    group = vim.api.nvim_create_augroup('kickstart-highlight-yank', { clear = true }),
-    callback = function()
-        vim.highlight.on_yank()
-    end,
+  desc = 'Highlight when yanking (copying) text',
+  group = vim.api.nvim_create_augroup('kickstart-highlight-yank', { clear = true }),
+  callback = function()
+    vim.highlight.on_yank()
+  end,
 })
