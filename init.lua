@@ -9,6 +9,10 @@ set.number = true
 set.relativenumber = true
 set.clipboard = "unnamedplus"
 
+-- Comments
+vim.keymap.set("n", "<leader>/", "gcc", { desc = "toggle comment", remap = true })
+vim.keymap.set("v", "<leader>/", "gc", { desc = "toggle comment", remap = true })
+
 -- Fix for tree-sitter highlight error
 vim.hl = vim.highlight
 
