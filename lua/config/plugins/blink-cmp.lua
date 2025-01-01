@@ -5,8 +5,11 @@ return {
     dependencies = 'rafamadriz/friendly-snippets',
     version = '*',
     opts = {
-      keymap = { preset = 'default' },
-
+      keymap = {
+        preset = 'default',
+        ["<C-j>"] = { 'select_and_accept', 'fallback' },
+        ['<C-space>'] = { function(cmp) cmp.show({ providers = { 'snippets' } }) end },
+      },
       appearance = {
         use_nvim_cmp_as_default = true,
         nerd_font_variant = 'mono'
