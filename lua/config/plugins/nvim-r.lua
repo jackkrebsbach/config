@@ -1,0 +1,5 @@
+return {
+  {
+    'jamespeapen/Nvim-R'
+  }
+}

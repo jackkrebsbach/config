@@ -4,7 +4,7 @@ return {
     dependencies = {
       {
         "folke/lazydev.nvim",
-        ft = { "lua", "typescript", "tex" },
+        ft = { "lua", "typescript", "tex", "r" },
         opts = {
           library = {
             -- See the configuration section for more details
@@ -17,18 +17,21 @@ return {
     config = function()
       local capabilities = require('blink.cmp').get_lsp_capabilities()
 
+      require("lspconfig").lua_ls.setup {
+        capabilities = capabilities
+      }
       require("lspconfig").tailwindcss.setup {
         capabilities = capabilities
       }
-
+      require 'lspconfig'.r_language_server.setup {
+        capabilities = capabilities
+      }
       require("lspconfig").ts_ls.setup {
         capabilities = capabilities,
         on_attach = function(client, bufnr)
-          -- So prettier is used in formatting
-          client.server_capabilities.documentFormattingProvider = false
+          client.server_capabilities.documentFormattingProvider = false -- So prettier is used in formatting
         end,
       }
-      require("lspconfig").lua_ls.setup { capabilities = capabilities }
 
       vim.api.nvim_create_autocmd('LspAttach', {
         callback = function(args)
@@ -36,7 +39,6 @@ return {
           if not c then return end
 
           if c.supports_method('textDocument/formatting') then
-            -- Format the current buffer on save
             vim.api.nvim_create_autocmd('BufWritePre', {
               buffer = args.buf,
               callback = function()
