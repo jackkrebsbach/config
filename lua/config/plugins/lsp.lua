@@ -1,6 +1,7 @@
 return {
   {
     "neovim/nvim-lspconfig",
+    enabled = true,
     dependencies = {
       {
         "folke/lazydev.nvim",

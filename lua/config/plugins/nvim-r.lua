@@ -1,5 +1,6 @@
 return {
   {
-    'jamespeapen/Nvim-R'
+    'jamespeapen/Nvim-R',
+    enabled = false,
   }
 }

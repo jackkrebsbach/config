@@ -2,9 +2,12 @@ return {
   {
     "lervag/vimtex",
     lazy = false,
+    enabled = true,
     init = function()
       vim.g.vimtex_view_method = "skim"
+      -- vim.g.vimtex_quickfix_method = 'pplatex'
       vim.g.vimtex_compiler_method = "tectonic"
+
       vim.keymap.set('n', '<leader>cc', function() print('Tex Compiler: ' .. vim.g.vimtex_compiler_method) end)
       vim.g.vimtex_quickfix_ignore_filters = {
         'LaTeX hooks Warning',
