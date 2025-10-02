@@ -63,6 +63,13 @@ return {
     { t("\\diff") },
     { condition = tex_utils.in_mathzone }
   ),
+
+  s({ trig = "op", snippetType = "autosnippet" },
+    fmt("\\operatorname{<>}",
+      { i(1) },
+      { delimiters = '<>' }),
+    { condition = tex_utils.in_mathzone }
+  ),
   -- \frac
   s({ trig = "ff", dscr = "Expands 'ff' into '\frac{}{}'", snippetType = "autosnippet", condition = tex_utils.in_mathzone },
     fmt(

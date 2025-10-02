@@ -9,6 +9,13 @@ set.number = true
 set.relativenumber = true
 set.clipboard = "unnamedplus"
 
+
+-- Spelling
+-- vim.opt_local.spell = true
+-- Create mapping for auto-correction while in insert mode
+-- <C-l> will correct the last misspelled word and return to insert mode
+-- vim.keymap.set('i', '<C-l>', '<c-g>u<Esc>[s1z=`]a<c-g>u', { silent = true })
+
 -- Comments
 vim.keymap.set("n", "<leader>/", "gcc", { desc = "toggle comment", remap = true })
 vim.keymap.set("v", "<leader>/", "gc", { desc = "toggle comment", remap = true })

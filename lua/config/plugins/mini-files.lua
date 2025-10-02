@@ -1,5 +1,6 @@
 return {
-  { 'echasnovski/mini.files',
+  {
+    'echasnovski/mini.files',
     version = '*',
     enabled = true,
     config = function()
