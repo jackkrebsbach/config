@@ -1,7 +1,10 @@
 return {
   {
     'saghen/blink.cmp',
-    dependencies = { 'L3MON4D3/LuaSnip', version = 'v2.*' },
+    dependencies = {
+	'L3MON4D3/LuaSnip', version = 'v2.*',
+        'krissen/blink-cmp-bibtex',
+    },
     enabled = true,
     version = '*',
     opts = {
@@ -20,10 +23,16 @@ return {
       -- elsewhere in your config, without redefining it, due to `opts_extend`
       snippets = { preset = 'luasnip' },
       sources = {
-        default = { 'lsp', 'path', 'snippets' },
+        default = { 'lsp', 'path', 'snippets', 'bibtex' },
+        providers = {
+          bibtex = {
+            name = 'bibtex',
+            module = 'blink-cmp-bibtex',
+          },
+        },
       },
-      signature = { enabled = true }
-    },
-    opts_extend = { "sources.default" }
+    signature = { enabled = true }
+},
+opts_extend = { "sources.default" }
   }
 }

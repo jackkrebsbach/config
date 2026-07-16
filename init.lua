@@ -1,54 +1,70 @@
-require("config.lazy")
--- Lazy-load snippets, i.e. only load when required, e.g. for a given filetype
-require("luasnip.loaders.from_lua").lazy_load({ paths = { "~/.config/nvim/LuaSnip/" } })
+if vim.g.vscode then
+  -- VSCode/Positron Neovim Extension - Minimal Config
+  vim.opt.clipboard = "unnamedplus"
 
-local set = vim.opt
+  -- Highlight when yanking (copying) text
+  vim.api.nvim_create_autocmd('TextYankPost', {
+    desc = 'Highlight when yanking (copying) text',
+    group = vim.api.nvim_create_augroup('vscode-highlight-yank', { clear = true }),
+    callback = function()
+      vim.highlight.on_yank({ timeout = 200 })
+    end,
+  })
 
-set.shiftwidth = 4
-set.number = true
-set.relativenumber = true
-set.clipboard = "unnamedplus"
+else
+  -- Ordinary Neovim
+  require("config.lazy")
+  -- Lazy-load snippets, i.e. only load when required, e.g. for a given filetype
+  require("luasnip.loaders.from_lua").lazy_load({ paths = { "~/.config/nvim/LuaSnip/" } })
+
+  local set = vim.opt
+
+  set.shiftwidth = 4
+  set.number = true
+  set.relativenumber = true
+  set.clipboard = "unnamedplus"
 
 
--- Spelling
--- vim.opt_local.spell = true
--- Create mapping for auto-correction while in insert mode
--- <C-l> will correct the last misspelled word and return to insert mode
--- vim.keymap.set('i', '<C-l>', '<c-g>u<Esc>[s1z=`]a<c-g>u', { silent = true })
+  -- Spelling
+  -- vim.opt_local.spell = true
+  -- Create mapping for auto-correction while in insert mode
+  -- <C-l> will correct the last misspelled word and return to insert mode
+  -- vim.keymap.set('i', '<C-l>', '<c-g>u<Esc>[s1z=`]a<c-g>u', { silent = true })
 
--- Comments
-vim.keymap.set("n", "<leader>/", "gcc", { desc = "toggle comment", remap = true })
-vim.keymap.set("v", "<leader>/", "gc", { desc = "toggle comment", remap = true })
+  -- Comments
+  vim.keymap.set("n", "<leader>/", "gcc", { desc = "toggle comment", remap = true })
+  vim.keymap.set("v", "<leader>/", "gc", { desc = "toggle comment", remap = true })
 
--- Fix for tree-sitter highlight error
-vim.hl = vim.highlight
+  -- Fix for tree-sitter highlight error
+  vim.hl = vim.highlight
 
--- Clear Highlight
-vim.api.nvim_set_keymap("n", "<CR>", ":noh<CR><CR>", { noremap = true, silent = true })
+  -- Clear Highlight
+  vim.api.nvim_set_keymap("n", "<CR>", ":noh<CR><CR>", { noremap = true, silent = true })
 
--- Prevent jumping
-vim.opt.signcolumn = "yes:1"
+  -- Prevent jumping
+  vim.opt.signcolumn = "yes:1"
 
--- Source lines of code/file
-vim.keymap.set("n", "<space><space>x", "<cmd>source %<CR>")
-vim.keymap.set("n", "<space>x", ":.lua<CR>")
-vim.keymap.set("v", "<space>x", ":lua<CR>")
+  -- Source lines of code/file
+  vim.keymap.set("n", "<space><space>x", "<cmd>source %<CR>")
+  vim.keymap.set("n", "<space>x", ":.lua<CR>")
+  vim.keymap.set("v", "<space>x", ":lua<CR>")
 
---Quick fix cycle
-vim.keymap.set("n", "<M-j>", "<cmd>cnext<CR>")
-vim.keymap.set("n", "<M-k>", "<cmd>cprev<CR>")
+  --Quick fix cycle
+  vim.keymap.set("n", "<M-j>", "<cmd>cnext<CR>")
+  vim.keymap.set("n", "<M-k>", "<cmd>cprev<CR>")
 
--- LSP references
-vim.keymap.set('n', 'grn', vim.lsp.buf.rename)
-vim.keymap.set('n', 'gra', vim.lsp.buf.code_action)
-vim.keymap.set('n', 'grr', vim.lsp.buf.references)
-vim.keymap.set('i', '<C-s>', vim.lsp.buf.signature_help)
+  -- LSP references
+  vim.keymap.set('n', 'grn', vim.lsp.buf.rename)
+  vim.keymap.set('n', 'gra', vim.lsp.buf.code_action)
+  vim.keymap.set('n', 'grr', vim.lsp.buf.references)
+  vim.keymap.set('i', '<C-s>', vim.lsp.buf.signature_help)
 
--- Highlight when yanking (copying) text
-vim.api.nvim_create_autocmd('TextYankPost', {
-  desc = 'Highlight when yanking (copying) text',
-  group = vim.api.nvim_create_augroup('kickstart-highlight-yank', { clear = true }),
-  callback = function()
-    vim.highlight.on_yank()
-  end,
-})
+  -- Highlight when yanking (copying) text
+  vim.api.nvim_create_autocmd('TextYankPost', {
+    desc = 'Highlight when yanking (copying) text',
+    group = vim.api.nvim_create_augroup('kickstart-highlight-yank', { clear = true }),
+    callback = function()
+      vim.highlight.on_yank()
+    end,
+  })
+end

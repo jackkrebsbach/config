@@ -51,13 +51,26 @@ return {
       }
     )
   ),
+  -- \textbf
+  s({ trig = "tb", dscr = "Expands 'tb' into '\textbf{}'" },
+    fmta(
+      "\\textbf{<>}",
+      { i(1) }
+    )
+  ),
+  -- \textit
+  s({ trig = "tit", dscr = "Expands 'tit' into '\texit{}'" },
+    fmta(
+      "\\textit{<>}",
+      { i(1) }
+    )
+  ),
   -- \texttt
   s({ trig = "tt", dscr = "Expands 'tt' into '\texttt{}'" },
     fmta(
       "\\texttt{<>}",
       { i(1) }
     )
-
   ),
   s({ trig = "df", snippetType = "autosnippet" },
     { t("\\diff") },

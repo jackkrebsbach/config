@@ -5,10 +5,19 @@ return {
     build = "make install_jsregexp",
     enabled = true,
     config = function()
-      require("luasnip").config.set_config({
+
+    local ls = require("luasnip")
+
+    ls.filetype_extend("markdown", { "tex" })
+    ls.filetype_extend("quarto", { "markdown", "tex" })
+    ls.filetype_extend("markdown.quarto", { "markdown", "tex" })
+
+    ls.config.set_config({
         enable_autosnippets = true,
         store_selection_keys = "<Tab>",
       })
+      
+      require("luasnip").filetype_extend("markdown", {"tex"})
 
       -- Reload Luanip snippets
       vim.keymap.set('n', '<Leader>L',
