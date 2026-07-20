@@ -13,7 +13,8 @@
 local dracula = {
   bg      = "#282a36", -- background
   fg      = "#f8f8f2", -- text
-  line    = "#44475a", -- current line / selection
+  line    = "#44475a", -- visual selection
+  cursor  = "#343746", -- current line (lighter than bg, subtler than selection)
   comment = "#6272a4",
   orange  = "#ffb86c",
   pink    = "#ff79c6",
@@ -33,8 +34,8 @@ local function define_tex_highlights()
   set("SignColumn",     { bg = d.bg })
   set("EndOfBuffer",    { fg = d.bg, bg = d.bg })
   set("LineNr",         { fg = d.comment, bg = d.bg })
-  set("CursorLine",     { bg = d.line })
-  set("CursorLineNr",   { fg = d.fg, bg = d.line, bold = true })
+  set("CursorLine",     { bg = d.cursor })
+  set("CursorLineNr",   { fg = d.fg, bg = d.cursor, bold = true })
   set("Visual",         { bg = d.line })
   set("MatchParen",     { fg = d.pink, bg = d.line, bold = true })
   set("Comment",        { fg = d.comment, italic = true })
@@ -125,13 +126,16 @@ end
 
 -- Attach the namespace to tex windows (and the VimTeX quickfix); restore
 -- the default namespace (0) for every other buffer so the theme cannot
--- leak when a window switches to a non-tex file.
+-- leak when a window switches to a non-tex file. The current-line
+-- highlight (cursorline) is enabled only for tex windows for the same
+-- reason.
 vim.api.nvim_create_autocmd({ "BufWinEnter", "BufEnter", "FileType", "WinEnter" }, {
   group = tex_group,
   callback = function(args)
     for _, win in ipairs(vim.fn.win_findbuf(args.buf)) do
-      local ns = window_wants_dracula(win, args.buf) and tex_ns or 0
-      pcall(vim.api.nvim_win_set_hl_ns, win, ns)
+      local wants = window_wants_dracula(win, args.buf)
+      pcall(vim.api.nvim_win_set_hl_ns, win, wants and tex_ns or 0)
+      pcall(vim.api.nvim_set_option_value, "cursorline", wants, { win = win })
     end
   end,
 })
